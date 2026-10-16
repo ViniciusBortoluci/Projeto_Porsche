@@ -22,7 +22,8 @@ O projeto utiliza a base `Vendas Porsche.xlsx` para analisar vendas de veículos
 
 Os nomes em inglês são os nomes usados na estrutura da tabela sanitizada; isso não significa que os cabeçalhos do arquivo de origem tenham sido alterados. As colunas terminadas em `Sanitized` são campos adicionais. `sale_id`, `customer_name` e `salesperson` não têm uma coluna sanitizada correspondente. `Vendas (R$)` também não foi preservada como coluna separada.
 
-## Dicionário e tipos de dados
+
+### Dicionário e tipos de dados
 
 Os tipos abaixo descrevem o valor esperado nas colunas da tabela sanitizada. Em colunas numéricas, o texto `INVALID` pode aparecer no lugar do número quando um valor não passa pela validação; nesses casos, a coluna contém valores de tipos diferentes no arquivo Excel.
 
@@ -61,18 +62,47 @@ Os tipos abaixo descrevem o valor esperado nas colunas da tabela sanitizada. Em 
 - **Cidade e estado:** capitalização consistente para cidades e conversão dos estados para siglas oficiais em maiúsculas;
 - **Valores inválidos:** uso de `INVALID` quando o valor está ausente, não pode ser interpretado ou não passa pela validação da coluna;
 
-## Criação do HTML
+## Perguntas de negócio
 
-Com o auxilio do ChatGPT, foi passado um promtp para criação de um site que:
+1. **Quais modelos têm maior destaque em cada cidade?** A análise relaciona os modelos mais vendidos aos locais de melhor desempenho para revelar preferências regionais.
+2. **Como o volume de vendas evolui ao longo do tempo?** A visualização mensal, trimestral e anual ajuda a identificar períodos de maior ou menor atividade.
+3. **Quais estados concentram mais vendas e receita?** A comparação entre quantidade de vendas e faturamento ajuda a avaliar o desempenho dos mercados estaduais.
 
-- Se parecesse com o Site da POrsche BR;
-- Indicadores de KPIs;
-- Métrica para avaliação de resultados;
-- Gráficos de barras indicando as vendas por periodos;
-- Gráfico de barras horizontais mostrando os 15 estado com maior venda;
-- Os modelos com maior vendas e as cidades;
-- Uma tabela de destaque mostrando os modelos com maiores vendas descrescente;
+## Prompts usados na criação e no refinamento
 
+A dashboard foi criada e refinada com auxílio do ChatGPT e do recurso Canvas. A sequência abaixo registra o pedido inicial e os ajustes solicitados durante o desenvolvimento.
 
-Este projeto foi uma oportunidade de praticar a análise e o tratamento de dados, desenvolver um agente em Python para padronizar campos e criar um dashboard interativo em HTML para apresentar os resultados. A comparação entre as planilhas também revelou algumas divergências que precisam ser revisadas antes de considerar todos os dados sanitizados equivalentes à base original.
+### Prompt 1: dashboard inicial
+
+> Utilizando o recurso Canvas, renderize um dashboard em HTML ao lado.
+>
+> **Filtros**
+> - Modelos
+> - Ano do Modelo
+> - Cidade
+> - Tipo de Pagamento
+>
+> **Perguntas de negócio e KPIs**
+> - Quais são os modelos mais vendidos por cidade?
+> - Qual modelo é mais vendido por período?
+
+### Prompt 2: perguntas de negócio e identidade visual
+
+> Faça algumas adaptações. Em relação às perguntas de negócio e aos KPIs, quero insights sobre os modelos mais populares em cada cidade. Para a interface e a experiência de uso (UI/UX), use como referência o site oficial da Porsche Brasil: https://www.porsche.com/brazil/pt/. Mantenha um visual elegante e refinado.
+
+### Prompt 3: carro campeão de vendas
+
+> Crie uma seção que mostre o carro campeão de vendas, sua descrição, preço e o local onde ele foi mais vendido. Inclua uma foto do modelo. A seção deve ser dinâmica: se os dados da tabela mudarem, as informações exibidas no site também devem ser atualizadas automaticamente.
+
+### Prompt 4: vendas por estado
+
+> Crie uma seção com um gráfico de barras que mostre a quantidade de vendas por estado e os respectivos valores, usando a coluna Estado.
+
+### Prompt 5: receita por estado
+
+> Adicione ao gráfico de barras uma variável com a receita por estado.
+
+O primeiro prompt definiu a estrutura inicial, os filtros e as perguntas de negócio. Nos refinamentos seguintes, foram detalhados os insights por cidade e a referência visual, incluído o destaque dinâmico do carro campeão e ampliada a comparação estadual para considerar também a receita.
+
+Este projeto foi uma oportunidade de praticar a análise e o tratamento de dados, desenvolver um agente em Python para padronizar campos e criar um dashboard interativo em HTML para apresentar os resultados. A comparação entre as planilhas também revelou divergências que precisam ser revisadas antes de considerar todos os dados sanitizados equivalentes à base original.
 
